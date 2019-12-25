@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        mc:Ignorable="d" x:Name="this" FontSize="16"
+        Title="Fate Grand Order" Height="460" Width="800">
+    <Window.Resources>
+        <RoutedCommand x:Key="Sure"/>
+        <RoutedCommand x:Key="Quit"/>
+        <RoutedCommand x:Key="Load_Email"/>
+        <RoutedCommand x:Key="Load_Image"/>
+        <RoutedCommand x:Key="MyLoad"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource MyLoad}" Executed="OnMyLoad_Executed" CanExecute="OnMyLoad_CanExecuted"/>
+        <CommandBinding Command="{StaticResource Load_Image}" Executed="OnLoad_ImageExecuted" CanExecute="OnLoad_ImagexCanExecuted"/>
+        <CommandBinding Command="{StaticResource Sure}" Executed="OnSure_Executed" CanExecute="OnSure_CanExecuted"/>
+        <CommandBinding Command="{StaticResource Quit}" Executed="OnQuit_Executed" CanExecute="OnQuit_CanExecuted"/>
+        <CommandBinding Command="{StaticResource Load_Email}" Executed="OnLoad_EmailExecuted" CanExecute="OnLoad_EmailCanExecuted"/>
+    </Window.CommandBindings>
+    <DockPanel>
+        <StackPanel >
+            <Label Content="Email地址：" />
+            <Button Content="导入(地址不能为空)" Command="{StaticResource MyLoad}"/>
+            <TextBox Text="{Binding Email_Dir,UpdateSourceTrigger=PropertyChanged}" MinWidth="300"/>
+            <Label Content="Email 正文："/>
+            <Button Content="自选Email" Command="{StaticResource Load_Email }"/>
+            <TextBox Text="{Binding Email_Texts,UpdateSourceTrigger=PropertyChanged}" 
+                             IsReadOnly="True"  VerticalScrollBarVisibility="Auto" 
+                             TextWrapping="NoWrap" 
+                             HorizontalScrollBarVisibility="Auto"  MinHeight="100" MaxHeight="160"/>
+            <!--       fgo     -->
+            <Label Content="插图路径：" />
+            <TextBox Text="{Binding Image_Dir,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="选择图像(手动选择)" Command="{StaticResource Load_Image}"/>
+            <Image Source="{Binding Image_Dir}" Height="100"/>
+            <!--    fgo    -->
+            <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+                <Button Content="确定" Command="{StaticResource Sure}"/>
+                <Button Content="结束(退出窗口)" Command="{StaticResource Quit}"/>
+            </UniformGrid>
+
+        </StackPanel>
+    </DockPanel>
+</Window> 
